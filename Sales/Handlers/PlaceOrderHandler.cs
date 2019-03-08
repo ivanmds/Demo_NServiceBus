@@ -3,7 +3,7 @@ using Messages.Commands;
 using NServiceBus;
 using NServiceBus.Logging;
 
-namespace ClientUI.Handlers
+namespace Sales.Handlers
 {
     public class PlaceOrderHandler : IHandleMessages<PlaceOrderCommand>
     {
