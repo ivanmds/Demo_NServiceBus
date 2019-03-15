@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Messages.Commands;
+using Messages.Events;
 using NServiceBus;
 using NServiceBus.Logging;
 
@@ -12,7 +13,9 @@ namespace Sales.Handlers
         public Task Handle(PlaceOrderCommand message, IMessageHandlerContext context)
         {
             log.Info($"Received PlaceOrderCommand, OrderId = {message.OrderId}");
-            return Task.CompletedTask;
+
+            var orderPlaced = new OrderPlacedEvent { OrderId = message.OrderId };
+            return context.Publish(orderPlaced);
         }
     }
 }

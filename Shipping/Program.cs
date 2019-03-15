@@ -1,9 +1,8 @@
-﻿using Messages.Events;
-using NServiceBus;
+﻿using NServiceBus;
 using System;
 using System.Threading.Tasks;
 
-namespace Sales
+namespace Shipping
 {
     class Program
     {
@@ -14,19 +13,14 @@ namespace Sales
 
         static async Task AsyncMain()
         {
-            Console.Title = "Sales";
-
-            var endpointConfiguration = new EndpointConfiguration("Sales");
+            Console.Title = "Shipping";
+            var endpointConfiguration = new EndpointConfiguration("Shipping");
             var transport = endpointConfiguration.UseTransport<LearningTransport>();
-
-            var routing = transport.Routing();
-            routing.RouteToEndpoint(typeof(OrderBilledEvent), "Shipping");
 
             var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
 
             Console.WriteLine("Press any key for exit.");
             Console.ReadKey();
-
 
             await endpointInstance.Stop().ConfigureAwait(false);
         }
